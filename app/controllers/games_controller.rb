@@ -7,33 +7,22 @@ class GamesController < ApplicationController
   end
 
   def score
-    @answer = params[:answer]
-    @result = wordcheck(@answer)
+    @letters = params[:letters].split
+    @word = (params[:word] || "").upcase
+    @included = included?(@word, @letters)
+    @english_word = english_word?(@word)
   end
 
-  def wordcheck(word)
-    url = "https://wagon-dictionary.herokuapp.com/#{word}"
-    json = open(url).read
-    objs = JSON.parse(json)
-    if word.present?
-      if objs["found"] == true && lettercheck(word) == true
-        "Congratulation, #{word} is a valid word."
-      else
-        "#{word} is an invalid word."
-      end
-    else
-      "Type your word!"
-    end
+  private
+
+  def included?(word, letters)
+    word.chars.all? { |letter| word.count(letter) <= letters.count(letter) }
   end
 
-  def lettercheck(word)
-    word.each do |letter|
-      if letter.include?(@letters)
-        return true
-      else
-        return false
-      end
-    end
+  def english_word?(word)
+    response = URI.open("https://wagon-dictionary.herokuapp.com/#{word}")
+    json = JSON.parse(response.read)
+    json['found']
   end
 
 end
