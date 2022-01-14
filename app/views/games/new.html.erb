@@ -1,18 +1,69 @@
-<div>
-  <h1>☄️ Welcome to the longest word game</h1>
-  <%@letters.each do |letter| %>
-  <span><%= letter %></span>
+<h1>☄️ Welcome to the longest word game</h1>
+  <% @letters.each do |letter| %>
+    <span><%= letter %></span>
   <% end %>
 
-<p class="form-prefix">What is the longest word you can find?</p>
+  <form action="/score" method="POST">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <%= hidden_field_tag :letters, @letters %>
+    <input type="text" name="word" placeholder="Type your word!">
+    <input type="submit" value="submit!">
+  </form>
 
-<form action="/score" method="POST" class="form-inline">
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-  <%= hidden_field_tag :letters, @letters %>
-  <div class="input-group input-group">
-    <input type="text" name="word" class="form-control">
-    <span class="input-group-btn">
-      <input type="submit" value="Play" class="btn btn-default">
-    </span>
-  </div>
-</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%# <div>
+  <h1>☄️ Welcome to the longest word game</h1>
+  <%@letters.each do |letter| %>
+  <%# <><%= letter %>
+  <%# <% end %>
+
+<%# <p class="form-prefix">What is the longest word you can find?</p> %>
+
+<%# <form action="/score" method="POST" class="form-inline"> %>
+  <%# <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <%# <%= hidden_field_tag :letters, @letters %>
+  <%# <div class="input-group input-group"> %>
+    <%# <input type="text" name="word" class="form-control"> %>
+    <%# <span class="input-group-btn"> %>
+      <%# <input type="submit" value="Play" class="btn btn-default"> %>
+    <%# </span> %>
+  <%# </div> %>
+<%# </form>  %>
